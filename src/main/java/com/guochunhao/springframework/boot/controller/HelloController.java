@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * Created by count on 17/3/23.
@@ -27,12 +29,39 @@ public class HelloController
     {
         logger.info(name);
 
-        User user = userService.selectOne(1);
+        User user = userService.selectOne(24);
 
         model.addAttribute("name", name);
         model.addAttribute("name", user.getUsername());
 
         return "hello";
+    }
+
+
+    /**
+     * 查询用户集合
+     *
+     * @param response
+     */
+    @RequestMapping("/add")
+    public void addUser(HttpServletResponse response)
+    {
+        logger.info("add用户开始");
+
+        User user = new User();
+        user.setAddress("南京市");
+        user.setBirthday(new Date());
+        user.setSex("1");
+        user.setUsername("guochunhao");
+        try
+        {
+            userService.addUser(user);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
 }

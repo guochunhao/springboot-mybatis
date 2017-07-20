@@ -9,4 +9,5 @@ public interface UserService
 {
     User selectOne(Integer id);
 
+    int addUser(User record) throws Exception;
 }
